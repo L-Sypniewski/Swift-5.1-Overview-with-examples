@@ -33,7 +33,7 @@ print(plane2 == plane1)
 
 
 protocol Box  {
-    associatedtype BoxedType: Equatable
+    associatedtype BoxedType
     
     var value: BoxedType {get}
 }
@@ -50,6 +50,14 @@ struct CGFloatBox: Box {
 func createBox() -> some Box {
     IntBox(value: Int.random(in: 1...100))
 }
+
+//struct EquatableBox<T: Equatable> : Box {
+//    var value: T
+//}
+//
+//func createBoxWithEquatable<T: Equatable>(value: T) -> EquatableBox<T> {
+//    EquatableBox(value: value)
+//}
 
 //func createBoxWithEquatable() -> some Box where Box.BoxedType == Equatable {
 //    IntBox(value: Int.random(in: 1...100))
