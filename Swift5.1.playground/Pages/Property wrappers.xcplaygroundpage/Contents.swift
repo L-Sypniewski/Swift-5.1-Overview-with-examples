@@ -147,12 +147,77 @@ struct BoldLabel {
     }
 }
 
+protocol LabelWrapper {
+    var label: UILabel {get set}
+    
+}
+
+@propertyWrapper
+struct ChainableBoldLabel: LabelWrapper {
+    
+    var label: UILabel
+    private var wrapper: LabelWrapper
+    
+      
+      init(wrappedValue: LabelWrapper) {
+            self.wrapper = wrappedValue
+            self.label = wrappedValue.label
+      }
+      
+      var wrappedValue: LabelWrapper {
+        set {
+            wrapper = newValue
+            label = newValue.label
+        }
+        mutating get {
+              label.font = UIFont.boldSystemFont(ofSize: label.font.pointSize)
+              wrapper.label = label
+              return wrapper
+          }
+      }
+}
+
+@propertyWrapper
+struct ChainableColouredLabel: LabelWrapper {
+    
+    var label: UILabel
+    private var wrapper: LabelWrapper
+    
+    private var color: UIColor
+    
+    
+    init(wrappedValue: LabelWrapper) {
+          self.wrapper = wrappedValue
+          self.label = wrappedValue.label
+          self.color = .black
+    }
+    
+    init(wrappedValue: LabelWrapper, color: UIColor) {
+        self.wrapper = wrappedValue
+        self.label = wrappedValue.label
+        self.color = color
+    }
+    
+    var wrappedValue: LabelWrapper {
+         set {
+                   wrapper = newValue
+                   label = newValue.label
+               }
+       mutating get {
+            label.textColor = color
+            wrapper.label = label
+            return wrapper
+        }
+    }
+}
+
 
 class ViewWithSomeLabels: UIView {
     
     @ColouredLabel(color: .green) private var label1: UILabel
-    @ColouredLabel(color: .red) private var label2 = UILabel()
+    @ColouredLabel(color: .red)  private var label2 = UILabel()
     @BoldLabel private var label3 = ColouredLabel(color: .red).wrappedValue
+//    @ChainableBoldLabel @ChainableColouredLabel(color: .red) private var chainableWrapper: LabelWrapper //Multiple wrappers are not supported
     
     
     override init(frame: CGRect) {
@@ -169,7 +234,7 @@ class ViewWithSomeLabels: UIView {
         label2.text = "Label on the bottom"
         label3.text = "The last one"
         
-//        @ColouredLabel(color: .blue) var label4 = UILabel()
+        //        @ColouredLabel(color: .blue) var label4 = UILabel()
         setContraints()
     }
     
