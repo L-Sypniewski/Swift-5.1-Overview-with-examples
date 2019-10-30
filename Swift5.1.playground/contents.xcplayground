@@ -6,5 +6,6 @@
         <page name='Universal Self'/>
         <page name='Function builders'/>
         <page name='Ordered collection diffing'/>
+        <page name='Diffable data sources'/>
     </pages>
 </playground>
