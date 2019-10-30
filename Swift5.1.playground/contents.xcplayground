@@ -3,5 +3,7 @@
     <pages>
         <page name='Opaque types'/>
         <page name='Property wrappers'/>
+        <page name='Universal Self'/>
+        <page name='Function builders'/>
     </pages>
 </playground>

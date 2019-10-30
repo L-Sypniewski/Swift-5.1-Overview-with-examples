@@ -1,5 +1,6 @@
 
 import Foundation
+import UIKit
 
 
 protocol Airplane: Equatable {
@@ -19,7 +20,7 @@ struct PrivateJet: Airplane {
 
 func createAirplane() -> some Airplane {
     Airliner()
- }
+}
 
 
 let plane1 = createAirplane()
@@ -76,7 +77,7 @@ struct GenericBox<T: Equatable>: Box {
 
 func createGenericBox<T: Equatable>(boxedValue: T) -> some  Box {
     GenericBox(value: boxedValue)
- }
+}
 
 
 let genericBox1 = createGenericBox(boxedValue: 21.0)
@@ -116,20 +117,20 @@ struct SeatUpgrade: Ancillary {
     var name: String
     var price: Int
     var cabinType: CabinType
-
+    
     
     static func < (lhs: SeatUpgrade, rhs: SeatUpgrade) -> Bool {
         lhs.cabinType < rhs.cabinType
-      }
+    }
 }
 
 struct LoungeAccess: Ancillary {
-
+    
     
     var name: String
     var price: Int
     var priority: Int
-
+    
     static func < (lhs: LoungeAccess, rhs: LoungeAccess) -> Bool {
         lhs.priority < rhs.priority
     }
@@ -142,7 +143,7 @@ struct OrderData {
 }
 
 func createAncillary(name: String, price: Int, orderData: OrderData) -> some Ancillary {
-//    LoungeAccess(name: name, price: price, priority: orderData.priority)
+    //    LoungeAccess(name: name, price: price, priority: orderData.priority)
     SeatUpgrade(name: name, price: price, cabinType: orderData.cabinType)
 }
 
