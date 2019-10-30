@@ -4,13 +4,13 @@ import Foundation
 
 @_functionBuilder
 class CharRowBuilder {
-  
-     static func buildBlock(_ children: String...) -> String {
+    
+    static func buildBlock(_ children: String...) -> String {
         
         var newString = ""
         
         for string in children {
-            newString += string
+            newString += " \(string)"
         }
         
         return newString
@@ -19,8 +19,8 @@ class CharRowBuilder {
 
 @_functionBuilder
 class StringFromIntBuilder {
-  
-     static func buildBlock(_ children: Int...) -> String {
+    
+    static func buildBlock(_ children: Int...) -> String {
         
         var newString = ""
         
@@ -34,8 +34,8 @@ class StringFromIntBuilder {
 
 @_functionBuilder
 class CharColumnBuilder {
-  
-     static func buildBlock(_ children: String...) -> String {
+    
+    static func buildBlock(_ children: String...) -> String {
         
         var newString = ""
         
@@ -72,7 +72,7 @@ print ("getColumn:\n\(getColumn())\n\n")
 
 struct Drawing {
     var content: String
-
+    
     init(@CharColumnBuilder _ content: () -> String) {
         self.content = content()
     }
@@ -102,3 +102,68 @@ func buildStringFromInts() -> String {
 }
 
 print(buildStringFromInts())
+
+
+
+
+
+
+struct RowBuilder {
+    
+    private(set) var row: String
+    
+    init(@CharRowBuilder _ content: () -> String) {
+        self.row = content()
+    }
+}
+
+struct ColumnBuilder {
+    
+    private(set) var columns: String
+    
+    init(@CharColumnBuilder _ content: () -> String) {
+        self.columns = content()
+    }
+}
+
+
+print(RowBuilder {
+    "3"
+    "4"
+    "5"
+}.row)
+
+print(ColumnBuilder {
+    "8"
+    "9"
+    "0"
+}.columns)
+
+
+var complexText = ColumnBuilder {
+    RowBuilder {
+        "String"
+        "in"
+        "a"
+        "first"
+        "column"
+    }.row
+    RowBuilder {
+        "This"
+        "is"
+        "next"
+        "row"
+    }.row
+}
+
+print(complexText.columns)
+
+
+
+//HStack {
+//  if greeting != nil {
+//    Text("\(greeting!) ")
+//  }
+//  Text("World")
+//}
+// static func buildIf(_ segment: T?) -> T

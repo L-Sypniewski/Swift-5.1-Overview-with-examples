@@ -5,5 +5,6 @@
         <page name='Property wrappers'/>
         <page name='Universal Self'/>
         <page name='Function builders'/>
+        <page name='Ordered collection diffing'/>
     </pages>
 </playground>
